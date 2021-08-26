@@ -1,10 +1,14 @@
 package me.daroguzo.interview._01_array_01;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class ContainsDuplicate {
 
     public static void main(String[] args) {
         ContainsDuplicate containsDuplicate = new ContainsDuplicate();
         System.out.println(containsDuplicate.solution(new int[]{1, 2, 3, 4, 5}));
+        System.out.println(containsDuplicate.solution(new int[]{1, 1, 2, 3, 5}));
     }
 
     /**
@@ -13,7 +17,17 @@ public class ContainsDuplicate {
      *  예) 1 1 2 2 3 1 => true
      */
     private boolean solution(int[] numbers) {
-        return false;
+        Set<Integer> set = new HashSet<>();
+        boolean answer = false;
+        for (int i :
+                numbers) {
+            if (set.contains(i))
+                answer = true;
+            else
+                set.add(i);
+        }
+        return answer;
+
     }
 
 }
