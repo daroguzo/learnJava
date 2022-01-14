@@ -12,7 +12,7 @@ public class LinkedList {
         list.add(new LinkedNode(3));
 
         list.print();
-        list.reverse();
+        list.reverse2();
 
         list.print();
     }
@@ -41,7 +41,37 @@ public class LinkedList {
      * @return
      */
     private void reverse() {
+        LinkedNode current = this.head;
+        LinkedNode prev = null;
+        LinkedNode next = null;
 
+        while (current != null) {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+
+        this.tail = this.head;
+        this.head = prev;
+    }
+
+    private void reverse2() {
+        LinkedNode head = this.head;
+        this.head = reverseRecursive(head);
+        this.tail = head;
+    }
+
+    private LinkedNode reverseRecursive(LinkedNode node) {
+        if (node == null || node.next == null) {
+            return node;
+        }
+
+        LinkedNode newHead = reverseRecursive(node.next);
+        node.next.next = node;
+        node.next = null;
+
+        return newHead;
     }
 
 }
