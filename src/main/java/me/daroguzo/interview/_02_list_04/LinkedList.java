@@ -1,5 +1,8 @@
 package me.daroguzo.interview._02_list_04;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class LinkedList {
 
     private LinkedNode head;
@@ -27,6 +30,15 @@ public class LinkedList {
      * @return
      */
     private boolean hasCircle() {
+        Set<Integer> set = new HashSet<>();
+        LinkedNode current = this.head;
+        while (current != null) {
+            if (set.contains(current.number)) {
+                return true;
+            }
+            set.add(current.number);
+            current = current.next;
+        }
         return false;
     }
 
