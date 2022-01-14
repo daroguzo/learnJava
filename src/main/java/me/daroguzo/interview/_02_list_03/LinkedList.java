@@ -20,7 +20,8 @@ public class LinkedList {
         list.add(new LinkedNode(4));
 
         list.print();
-        list.removeDuplicates();
+        list.removeDuplicates1();
+        System.out.println();
         list.print();
     }
 
@@ -29,8 +30,16 @@ public class LinkedList {
      *  예) 1 -> 1 -> 1 -> 2 -> 3 -> 3   =>   1 -> 2 -> 3
      * @return
      */
-    private void removeDuplicates() {
-
+    private void removeDuplicates1() {
+        LinkedNode current = this.head;
+        while (current != null) {
+            LinkedNode temp = current;
+            while (temp != null && temp.number == current.number) {
+                temp = temp.next;
+            }
+            current.next = temp;
+            current = current.next;
+        }
     }
 
     private void print() {
