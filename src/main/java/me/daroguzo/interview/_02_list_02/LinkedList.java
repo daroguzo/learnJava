@@ -1,5 +1,8 @@
 package me.daroguzo.interview._02_list_02;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class LinkedList {
 
     private LinkedNode head;
@@ -8,12 +11,12 @@ public class LinkedList {
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         list.add(new LinkedNode(1));
+        list.add(new LinkedNode(4));
         list.add(new LinkedNode(2));
         list.add(new LinkedNode(3));
-        list.add(new LinkedNode(4));
 
         list.print();
-        LinkedNode node = list.findFromLast(2);
+        LinkedNode node = list.findFromLast2(2);
         System.out.println(node.number);
     }
 
@@ -23,8 +26,48 @@ public class LinkedList {
      * @param n
      * @return
      */
-    private LinkedNode findFromLast(int n) {
-        return null;
+    private LinkedNode findFromLast1(int n) {
+        Map<Integer, LinkedNode> hashMap = new HashMap<>();
+        LinkedNode current = this.head;
+        int i = 0;
+        while (current != null) {
+            hashMap.put(i++, current);
+            current = current.next;
+        }
+        return hashMap.get(hashMap.size() - n);
+    }
+
+    private LinkedNode findFromLast2(int n) {
+        int size = 0;
+        LinkedNode current = this.head;
+        while (current != null) {
+            size++;
+            current = current.next;
+        }
+
+        int index = size - n;
+        LinkedNode target = this.head;
+        while (index > 0) {
+            index--;
+            target = target.next;
+        }
+
+        return target;
+    }
+
+    private LinkedNode findFromLast3(int n) {
+        LinkedNode left = this.head;
+        LinkedNode right = this.head;
+        int count = 0;
+        while(right.next != null) {
+            if (count == n - 1) {
+                left = left.next;
+                right = right.next;
+            } else if (count++ < n) {
+                right = right.next;
+            }
+        }
+        return left;
     }
 
     private void print() {
