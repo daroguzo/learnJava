@@ -1,6 +1,9 @@
 package me.daroguzo.interview._03_stack_04;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Stack;
 
 public class NextGreaterElement {
 
@@ -20,6 +23,19 @@ public class NextGreaterElement {
      * @return
      */
     private int[] solution(int[] numbers) {
-        return numbers;
+        int[] nge = new int[numbers.length];
+        Stack<Integer> stack = new Stack<>();
+        stack.push(numbers.length - 1);
+        nge[numbers.length - 1] = -1;
+
+        for (int i = numbers.length - 2; i >= 0; i--) {
+            while (!stack.isEmpty() && numbers[stack.peek()] <= numbers[i]) {
+                stack.pop();
+            }
+            nge[i] = stack.isEmpty() ? -1 : numbers[stack.peek()];
+            stack.push(i);
+        }
+
+        return nge;
     }
 }
