@@ -1,5 +1,10 @@
 package me.daroguzo.interview._03_stack_02;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Stack;
+
 public class CheckingBrackets {
 
     public static void main(String[] args) {
@@ -17,6 +22,22 @@ public class CheckingBrackets {
      *  예) [{1 + 2 * (2 + 2)} - [1 - 3)]   => false
      */
     private boolean check(String mathExpression) {
-        return false;
+        Stack<Character> stack = new Stack<>();
+        List<Character> openingBrackets = Arrays.asList('(', '{', '[');
+        List<Character> closingBrackets = Arrays.asList(')', '}', ']');
+
+        for (char c : mathExpression.toCharArray()) {
+            if (openingBrackets.contains(c)) {
+                stack.push(c);
+            } else if (closingBrackets.contains(c)) {
+                if (stack.isEmpty()) return false;
+                Character pop = stack.pop();
+                if (openingBrackets.indexOf(pop) != closingBrackets.indexOf(c)) {
+                    return false;
+                }
+            }
+        }
+
+        return stack.isEmpty();
     }
 }

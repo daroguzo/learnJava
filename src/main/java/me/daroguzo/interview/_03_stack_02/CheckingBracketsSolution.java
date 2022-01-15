@@ -10,6 +10,9 @@ public class CheckingBracketsSolution {
         CheckingBracketsSolution checkingBrackets = new CheckingBracketsSolution();
         System.out.println(checkingBrackets.check("[{1 + 2 * (2 + 2)} - (1 - 3)]"));
         System.out.println(checkingBrackets.check("[{1 + 2 * (2 + 2)} - [1 - 3)]"));
+        System.out.println(checkingBrackets.check("((())"));
+        System.out.println(checkingBrackets.check("(()))"));
+        System.out.println(checkingBrackets.check("{{()}}"));
     }
 
     private boolean check(String mathExpression) {
