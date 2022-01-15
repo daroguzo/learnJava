@@ -1,16 +1,17 @@
 package me.daroguzo.interview._03_stack_03;
 
 import java.util.LinkedList;
+import java.util.Stack;
 
 public class EvaluationPostfix {
 
     public static void main(String[] args) {
         EvaluationPostfix postfix = new EvaluationPostfix();
-        System.out.println(postfix.evaluate("52+") == 7);
-        System.out.println(postfix.evaluate("52-") == 3);
-        System.out.println(postfix.evaluate("52*") == 10);
-        System.out.println(postfix.evaluate("52/") == 2);
-        System.out.println(postfix.evaluate("521+-9*") == 18);
+        System.out.println(postfix.evaluate2("52+") == 7);
+        System.out.println(postfix.evaluate2("52-") == 3);
+        System.out.println(postfix.evaluate2("52*") == 10);
+        System.out.println(postfix.evaluate2("52/") == 2);
+        System.out.println(postfix.evaluate2("521+-9*") == 18);
     }
 
     /**
@@ -47,5 +48,33 @@ public class EvaluationPostfix {
         }
 
         return numbers.pop();
+    }
+
+    private int evaluate2(String postfix) {
+        postfix = postfix.trim();
+        Stack<Integer> stack = new Stack<>();
+        for (char c : postfix.toCharArray()) {
+            if (Character.isDigit(c)){
+                stack.push(c - '0');
+            } else {
+                int left = stack.pop();
+                int right = stack.pop();
+                switch (c) {
+                    case '+':
+                        stack.push(left + right);
+                        break;
+                    case '-':
+                        stack.push(left - right);
+                        break;
+                    case '*':
+                        stack.push(left * right);
+                        break;
+                    case '/':
+                        stack.push(left / right);
+                        break;
+                }
+            }
+        }
+        return stack.pop();
     }
 }
